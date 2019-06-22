@@ -147,6 +147,28 @@ int del_list(struct Node *head_list)
 	return 0;
 }
 
+struct Node* reverse_list(struct Node* phead)
+{
+	struct Node* ptmpNext = NULL;
+	struct Node* preNode = NULL;
+	struct Node* ptmpHead = phead;
+
+	if (ptmpHead == NULL)
+	{
+		return NULL;
+	}
+
+	while (ptmpHead != NULL)
+	{
+		ptmpNext = ptmpHead->pnext;
+		ptmpHead->pnext = preNode;
+		preNode = ptmpHead;
+		ptmpHead = ptmpNext;
+	}
+
+	return preNode;
+}
+
 int main(void)
 {
 	struct Node head_list;
@@ -155,18 +177,20 @@ int main(void)
 	head_list.element = 0;
 	head_list.pnext = NULL;
 
-	for (i = 1; i < 100000; i++)
+	for (i = 1; i < 100; i++)
 		add_node(&head_list, i);
 
 	print_list(&head_list);
 
-	del_node(&head_list, 9);
+	print_list(reverse_list(&head_list));
 
-	print_list(&head_list);
+	//del_node(&head_list, 9);
 
-	insert_node(find_node(&head_list, 3), 12);
+	//print_list(&head_list);
 
-	print_list(&head_list);
+	//insert_node(find_node(&head_list, 3), 12);
+
+	//print_list(&head_list);
 
 
 	return 0;
